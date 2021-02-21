@@ -1,0 +1,21 @@
+dn: dc=example,dc=com
+dc: example
+description: Serveur exemple
+objectClass: dcObject
+objectClass: organization
+o: Serveur exemple
+
+dn: ou=people, dc=example,dc=com
+ou: people
+objectClass: organizationalUnit
+
+dn: uid=user,ou=people,dc=example,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+uid: user
+cn: Lucky
+sn: Luke
+userPassword: dwssap
+mail: user@example.com
