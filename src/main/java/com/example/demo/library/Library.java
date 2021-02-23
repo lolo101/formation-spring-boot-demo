@@ -1,29 +1,19 @@
 package com.example.demo.library;
 
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.Optional;
 
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.toMap;
+@Repository
+public interface Library extends JpaRepository<Book, String> {
 
-@Component
-public class Library {
-
-    private static final List<Book> inventory = Arrays.asList(
-            new Book("Bilbo le Hobbit", "JRR Tolkien", "225303293X"),
-            new Book("The long road", "Christopher Tolkien", "0261102257")
-    );
-
-    public Collection<Book> inventory() {
-        return inventory;
+    default Collection<Book> inventory() {
+        return findAll();
     }
 
-    public Book findBook(String isbn) {
-        return inventory.stream()
-                .collect(toMap(Book::getIsbn, identity()))
-                .getOrDefault(isbn, Book.NotFound);
+    default Optional<Book> findBook(String isbn) {
+        return findById(isbn);
     }
 }
